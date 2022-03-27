@@ -8,7 +8,7 @@
     "server": "nodemon index.ts",
     "client": "npm start --prefix client",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
-    "start": "ts-nodenpm install -D ts-node index.ts",
+    "start": "ts-node index.ts",
     "heroku-postbuild": "npm install && cd client && npm install && npm run build"
   },
   "keywords": [],
