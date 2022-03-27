@@ -8,7 +8,7 @@ const app = express()
 
 const port = process.env.PORT || 8000
 const mongodbUrl = process.env.MONGODB_URL
-
+console.log('+++++++++++++++++++++++++++++mongodbUrl', mongodbUrl)
 mongoose.connect(mongodbUrl, { useNewUrlParser: true })
 const database = mongoose.connection
 database.on('error', (error: Error) => {
@@ -27,6 +27,7 @@ app.use(express.static(path.join(__dirname, 'client', 'build')))
 app.get('*', (req: any, res: any) => {
   res.sendFile(path.join(__dirname, 'client', 'build', 'index.html'))
 })
+
 app.listen(port, () => {
   console.log(`Server Started at ${port}`)
 })
