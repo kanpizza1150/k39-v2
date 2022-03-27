@@ -23,14 +23,13 @@ database.once('connected', () => {
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
-app.get('/', (req: Request, res: Response) => res.send('Hello world'))
-app.use('/api', routes)
+// app.get('/', (req: Request, res: Response) => res.send('Hello world'))
 
+app.use('/api', routes)
 app.use(express.static(path.join(__dirname, 'client', 'build')))
 app.get('*', (req: Request, res: Response) => {
   res.sendFile(path.join(__dirname, 'client', 'build', 'index.html'))
 })
-
 app.listen(port, () => {
   console.log(`Server Started at ${port}`)
 })
