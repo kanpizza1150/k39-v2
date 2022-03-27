@@ -11,7 +11,7 @@ const app = express()
 const port = process.env.PORT || 8000
 const mongodbUrl = process.env.MONGODB_URL
 
-mongoose.connect(mongodbUrl)
+mongoose.connect(mongodbUrl, { useNewUrlParser: true })
 const database = mongoose.connection
 database.on('error', (error: Error) => {
   console.error('[DB] Error:', error)
@@ -26,12 +26,10 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.get('/', (req: Request, res: Response) => res.send('Hello world'))
 app.use('/api', routes)
 
-if (process.env.NODE_ENV === 'production') {
-  app.use(express.static('frontend/build'))
-  app.get('*', () => (req: Request, res: Response) => {
-    res.sendFile(path.join(__dirname, 'frontend', 'build', 'index.html'))
-  })
-}
+app.use(express.static(path.join(__dirname, 'client', 'build')))
+app.get('*', (req: Request, res: Response) => {
+  res.sendFile(path.join(__dirname, 'client', 'build', 'index.html'))
+})
 
 app.listen(port, () => {
   console.log(`Server Started at ${port}`)
